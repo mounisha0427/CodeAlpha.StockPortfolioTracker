@@ -1,0 +1,43 @@
+# Dictionary with predefined stock prices
+stock_prices = {
+    "AAPL": 180,
+    "TSLA": 250,
+    "GOOGL": 140,
+    "MSFT": 310,
+    "AMZN": 130
+}
+
+# Dictionary to store user portfolio
+portfolio = {}
+
+# Take user input for number of stocks
+num_stocks = int(input("Enter the number of different stocks you own: "))
+
+for _ in range(num_stocks):
+    stock = input("Enter stock symbol (e.g., AAPL, TSLA): ").upper()
+    quantity = int(input(f"Enter quantity of {stock}: "))
+    
+    if stock in stock_prices:
+        portfolio[stock] = quantity
+    else:
+        print(f"⚠️ {stock} is not in our price list. Skipping.")
+
+# Calculate total investment
+total_value = 0
+for stock, qty in portfolio.items():
+    value = stock_prices[stock] * qty
+    print(f"{stock}: {qty} shares × ₹{stock_prices[stock]} = ₹{value}")
+    total_value += value
+
+# Display total investment
+print("\n🧾 Total Investment Value: ₹", total_value)
+
+# Optional: Save to a .txt file
+with open("portfolio_report.txt", "w") as file:
+    file.write("Stock Portfolio Summary\n\n")
+    for stock, qty in portfolio.items():
+        value = stock_prices[stock] * qty
+        file.write(f"{stock}: {qty} × ₹{stock_prices[stock]} = ₹{value}\n")
+    file.write(f"\nTotal Investment: ₹{total_value}")
+    
+print("📁 Report saved to 'portfolio_report.txt'")
